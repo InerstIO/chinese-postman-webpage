@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Chinese Postman Problem
+    </title>
+    {% load static %}
+    <link href="{% static "cpp/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "cpp/starter-template.css" %}" rel="stylesheet">
+    <script src="{% static "cpp/jquery-3.2.1.slim.min.js" %}"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static "cpp/popper.min.js" %}"></script>
+    <script src="{% static "cpp/bootstrap.min.js" %}"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="/cpp">Chinese Postman Problem</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbars">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#" title="List all the galleries">1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="List all the images and the number of images in a gallery">2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Create a new gallery">5</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Create a new artist">6</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Add a new image">7</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Delete an image">8</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Modify the details of an image">9</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Modify the details of an artist">10</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Modify the name and description of a gallery">11</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+    <main>
+    </main>
+    <br>
+
+    <div>
+        <form method='post' enctype='multipart/form-data'>
+            {% csrf_token %}
+            Upload the graph (.csv):
+            <br>
+            <input name='uploadgraph' type='file' required>
+            <br>
+            <input type='submit' value='Upload'>
+        </form>    
+    </div>
+    <div>
+      {{ ret }}
+    </div>
+
+</body>
