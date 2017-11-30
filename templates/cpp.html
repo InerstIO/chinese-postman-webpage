@@ -21,45 +21,13 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbars">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" title="List all the galleries">1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="List all the images and the number of images in a gallery">2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Create a new gallery">5</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Create a new artist">6</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Add a new image">7</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Delete an image">8</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Modify the details of an image">9</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Modify the details of an artist">10</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" title="Modify the name and description of a gallery">11</a>
-          </li>
-        </ul>
-      </div>
     </nav>
     
     <main>
     </main>
     <br>
 
-    <div>
+    <div class="upload">
         <form method='post' enctype='multipart/form-data'>
             {% csrf_token %}
             Upload the graph (.csv):
