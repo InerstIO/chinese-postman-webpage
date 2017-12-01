@@ -23,22 +23,6 @@ def check_index(edges):
             edge[1] = l.index(edge[1]) + 1
         return l
     return []
-    #####   BAD NEED TO REGENERATE GRAPH, BETTER TO DO WITH EDGES
-    '''
-    if not graph.all_edges:
-        return
-    maxIndex=1
-    s=set()
-    for edge in graph.all_edges:
-        s.add(edge.head)
-        s.add(edge.tail)
-        maxIndex=max(maxIndex, edge.head, edge.tail)
-    if len(s) != maxIndex:
-        l=list(s)
-        for edge in graph.all_edges:
-            edge.head=l.index(edge.head)+1
-            edge.tail=l.index(edge.tail)+1
-    '''
 
 def check_degree(edges, deg):
     '''
@@ -88,4 +72,3 @@ def check_connected(graph):
             except IndexError:  # We are back to the beginning
                 break
     return len(visited) == len(graph.nodes)
-
