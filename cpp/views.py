@@ -11,6 +11,7 @@ def cpp(request):
         filename = fs.save('graph.csv', uploadgraph)
         d = int(request.POST['min_degree']) if request.POST['min_degree'] else 0
         w = int(request.POST['max_weight']) if request.POST['max_weight'] else None
-        context['ret']=solver(degree = d, weight = w)
+        s = int(request.POST['start_node']) if request.POST['start_node'] else 1
+        context['ret']=solver(degree = d, weight = w, start = s)
         FileSystemStorage().delete('graph.csv')
     return render(request, 'cpp.html', context)

@@ -2,7 +2,7 @@ import csvparser
 import preproc
 from chinesepostman import eularian, network
 
-def solver(degree = 0, weight = None, start = None):
+def solver(degree = 0, weight = None, start = 1):
     """ Make it so. """
     edges = None
     edges = csvparser.parse('graph/graph.csv')
@@ -25,8 +25,10 @@ def solver(degree = 0, weight = None, start = None):
     else:
         graph = original_graph
 
+    if convert:
+        start = convert.index(start) + 1
     #print('Attempting to solve Eularian Circuit...')
-    route, attempts = eularian.eularian_path(graph, start=1)
+    route, attempts = eularian.eularian_path(graph, start = start)
     if not route:
         #print('\tGave up after {} attempts.'.format(attempts))
         return 'Failed to find a route after '+ str(attempts) + ' attempts.'
