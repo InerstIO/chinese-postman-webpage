@@ -4,25 +4,24 @@ from chinesepostman import network
 def check_index(edges):
     '''
     Make the index of the nodes starts from zero, and no skipping.
-    Return the list used for conversion, need to use that list to convert 
-    everything back after finding the path.
-    If no conversion, return an empty list.
+    Return the list used for conversion (all the existing nodes in order),
+    need to use that list to convert everything back after finding the path.
     '''
     if not edges:
         return
-    max_index = 1
+    max_index, skip = 1, False
     s = set()
     for edge in edges:
         s.add(edge[0])
         s.add(edge[1])
         max_index = max(max_index, edge[0], edge[1])
+    l = list(s)
     if len(s) != max_index:
-        l = list(s)
+        skip = True
         for edge in edges:
             edge[0] = l.index(edge[0]) + 1
             edge[1] = l.index(edge[1]) + 1
-        return l
-    return []
+    return l, skip
 
 def check_degree(edges, deg):
     '''

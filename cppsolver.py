@@ -2,7 +2,7 @@ import csvparser
 import preproc
 from chinesepostman import eularian, network
 
-def solver(degree = 0, weight = None, start = 1):
+def solver(degree = 0, weight = None, start = None):
     """ Make it so. """
     edges = None
     edges = csvparser.parse('graph/graph.csv')
@@ -10,7 +10,7 @@ def solver(degree = 0, weight = None, start = 1):
     edges = preproc.check_weight(edges, weight)
     if not edges:
         return 'There is no subgraph that meets the specification.'
-    convert = preproc.check_index(edges)
+    convert, skip = preproc.check_index(edges)
     original_graph = network.Graph(edges)
     if not preproc.check_connected(original_graph):
         return 'The graph is not connected (after meeting the specification).'
@@ -25,10 +25,12 @@ def solver(degree = 0, weight = None, start = 1):
     else:
         graph = original_graph
 
-    if convert:
+    if start != None and skip:
+        if start not in convert:
+            return 'The start node specified does not meet other requirements, and is deleted.'
         start = convert.index(start) + 1
     #print('Attempting to solve Eularian Circuit...')
-    route, attempts = eularian.eularian_path(graph, start = start)
+    route, attempts = eularian.eularian_path(graph, start=start)
     if not route:
         #print('\tGave up after {} attempts.'.format(attempts))
         return 'Failed to find a route after '+ str(attempts) + ' attempts.'
@@ -36,7 +38,7 @@ def solver(degree = 0, weight = None, start = 1):
         #print('\tSolved in {} attempts'.format(attempts, route))
         #print('Solution: ({} edges)'.format(len(route) - 1))
         #print('\t{}'.format(route))
-        if convert:
-            for i,node in enumerate(route):
+        if skip:
+            for i, node in enumerate(route):
                 route[i] = convert[node-1]
         return 'Find path '+'->'.join(map(str,route))
