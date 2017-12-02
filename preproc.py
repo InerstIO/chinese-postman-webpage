@@ -44,6 +44,8 @@ def check_weight(edges, w):
     Delete edges with weight larger than w.
     Return the new edges
     '''
+    if w == None:
+        return edges
     new_edges = []
     for edge in edges:
         if edge[2] <= w:

@@ -1,12 +1,19 @@
 import csvparser
+import preproc
 from chinesepostman import eularian, network
 
-def solver():
+def solver(degree = 0, weight = None, start = None):
     """ Make it so. """
     edges = None
     edges = csvparser.parse('graph/graph.csv')
-
+    edges = preproc.check_degree(edges, degree)
+    edges = preproc.check_weight(edges, weight)
+    if not edges:
+        return 'There is no subgraph that meets the specification.'
+    convert = preproc.check_index(edges)
     original_graph = network.Graph(edges)
+    if not preproc.check_connected(original_graph):
+        return 'The graph is not connected (after meeting the specification).'
 
     #print('{} edges'.format(len(original_graph)))
     if not original_graph.is_eularian:
@@ -27,4 +34,7 @@ def solver():
         #print('\tSolved in {} attempts'.format(attempts, route))
         #print('Solution: ({} edges)'.format(len(route) - 1))
         #print('\t{}'.format(route))
+        if convert:
+            for i,node in enumerate(route):
+                route[i] = convert[node-1]
         return 'Find path '+'->'.join(map(str,route))
