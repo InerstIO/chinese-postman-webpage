@@ -24,8 +24,6 @@
       </button>
     </nav>
     
-    <main>
-    </main>
     <br>
 
     <div class="upload">
@@ -67,8 +65,9 @@
                 'line-color': '#ddd',
                 'target-arrow-color': '#ddd'
             })
-            .selector('diredge')
+            .selector('.doublededge')
             .css({
+                'display': 'none',
                 'curve-style': 'bezier',
                 'target-arrow-shape': 'triangle',
                 'width': 4,
@@ -77,6 +76,9 @@
             })
             .selector('.highlighted')
             .css({
+                'opacity': 0.5,
+                'display': 'element',
+                'target-arrow-shape': 'triangle',
                 'background-color': '#61bffc',
                 'line-color': '#61bffc',
                 'target-arrow-color': '#61bffc',
@@ -87,7 +89,7 @@
         elements: {
             nodes: {{ nodes|safe }},
 
-            edges: {{ edges|safe }}
+            edges: {{ oriedges|safe }},
             },
 
         layout: {
@@ -97,6 +99,32 @@
             padding: 10
         }
         });
+
+        path = {{ path|safe }}
+
+        var i = 0;
+        var highlightNextRoute = function() {
+            if ( i < path.length) {
+                edgesel = 'edge[source="'+path[i][0]+'"][target="'+path[i][1]+'"]';
+                revedgesel = 'edge[source="'+path[i][1]+'"][target="'+path[i][0]+'"]';
+                if (cy.elements(revedgesel).length && !cy.elements(revedgesel).hasClass('highlighted')) {
+                    cy.elements(revedgesel).remove();
+                    cy.add({data: { source: path[i][0], target: path[i][1] }, classes: 'highlighted' });
+                    alert(1);
+                } else if (cy.elements(edgesel).length && !cy.elements(edgesel).hasClass('highlighted')) {
+                    cy.elements(edgesel).addClass('highlighted');
+                    alert(2);
+                } else {
+                    cy.add({data: { source: path[i][0], target: path[i][1] }, classes: 'highlighted' });
+                    alert(3);
+                }
+                alert(path);
+                i++;
+                setTimeout(highlightNextRoute, 500);
+            }
+        };
+
+        highlightNextRoute();
 
         var bfs = cy.elements().bfs('#a', function(){}, false);
 

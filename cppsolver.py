@@ -7,8 +7,8 @@ def solver(degree = 0, weight = None, start = None):
     """ Make it so. """
     edges = None
     edges = csvparser.parse('graph/graph.csv')
-    oriedges4json = [{'data':{'source':str(e[0]),'target':str(e[1]),'weight':str(e[2])}} for \
-        e in edges]
+    oriedges4json = [{'data':{'source':str(edge[0]),'target':str(edge[1]),'weight':str(edge[2])}} for \
+        edge in edges]
     edges = preproc.check_degree(edges, degree)
     edges = preproc.check_weight(edges, weight)
     if not edges:
@@ -45,8 +45,11 @@ def solver(degree = 0, weight = None, start = None):
         if skip:
             for i, node in enumerate(route):
                 route[i] = convert[node-1]
-        path4json = []
+        path4json = [(route[i], route[i+1]) for i in range(len(route)-1)]
+        #edges4json = [(edge[0], edge[1]) for edge in edges]
+        #oriedges4json.append({'data':{'source':4,'target':1,'weight':2}, 'classes':'diredge'})
         return ['Find path '+'->'.join(map(str,route)), \
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
-            .replace('"target"','target').replace('"weight"','weight')]
+            .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
+            json.dumps(path4json)]

@@ -12,6 +12,7 @@ def cpp(request):
         d = int(request.POST['min_degree']) if request.POST['min_degree'] else 0
         w = int(request.POST['max_weight']) if request.POST['max_weight'] else None
         s = int(request.POST['start_node']) if request.POST['start_node'] else None
-        context['ret'], context['nodes'], context['edges'] = solver(degree=d, weight=w, start=s)
+        context['ret'], context['nodes'], context['oriedges'], context['path'] \
+            = solver(degree=d, weight=w, start=s)
         FileSystemStorage().delete('graph.csv')
     return render(request, 'cpp.html', context)
