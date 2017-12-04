@@ -19,7 +19,7 @@ def solver(degree = 0, weight = None, start = None):
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
             .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
-            [],json.dumps(nodeinpath),json.dumps(deledges)]
+            [],[],json.dumps(deledges)]
     convert, skip = preproc.check_index(edges)
     nodeinpath = convert
     original_graph = network.Graph(edges)
