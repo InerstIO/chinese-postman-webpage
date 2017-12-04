@@ -7,8 +7,8 @@ def solver(degree = 0, weight = None, start = None):
     edges = None
     edges = csvparser.parse('graph/graph.csv')
     oriedges = edges
-    oriedges4json = [{'data':{'source':str(edge[0]),'target':str(edge[1]),'weight':str(edge[2])}} for \
-        edge in edges]
+    oriedges4json = [{'data':{'source':str(edge[0]),'target':str(edge[1]),'weight':str(edge[2])}} \
+        for edge in edges]
     nodes = set(sum([[edge[0],edge[1]] for edge in edges],[]))
     nodes4json = [{'data':{'id':str(n)}} for n in nodes]
     edges = preproc.check_degree(edges, degree)
@@ -18,7 +18,7 @@ def solver(degree = 0, weight = None, start = None):
         return ['There is no subgraph that meets the specification.', \
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
-            .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
+            .replace('"target"','target').replace('"weight"','weight'),
             [],[],json.dumps(deledges)]
     convert, skip = preproc.check_index(edges)
     nodeinpath = convert
@@ -27,7 +27,7 @@ def solver(degree = 0, weight = None, start = None):
         return ['The graph is not connected (after meeting the specification).',  \
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
-            .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
+            .replace('"target"','target').replace('"weight"','weight'),
             [],json.dumps(nodeinpath),json.dumps(deledges)]
 
     #print('{} edges'.format(len(original_graph)))
@@ -45,7 +45,7 @@ def solver(degree = 0, weight = None, start = None):
             return ['The start node specified does not meet other requirements.', \
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
-            .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
+            .replace('"target"','target').replace('"weight"','weight'),
             [],json.dumps(nodeinpath),json.dumps(deledges)]
         start = convert.index(start) + 1
     #print('Attempting to solve Eularian Circuit...')
@@ -55,7 +55,7 @@ def solver(degree = 0, weight = None, start = None):
         return ['Failed to find a route after '+ str(attempts) + ' attempts.', \
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
-            .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
+            .replace('"target"','target').replace('"weight"','weight'),
             [],json.dumps(nodeinpath),json.dumps(deledges)]
     else:
         #print('\tSolved in {} attempts'.format(attempts, route))
@@ -71,5 +71,5 @@ def solver(degree = 0, weight = None, start = None):
         return ['Find path '+'->'.join(map(str,route)), \
             json.dumps(nodes4json).replace('"data"','data').replace('"id"','id'), \
             json.dumps(oriedges4json).replace('"data"','data').replace('"source"','source')\
-            .replace('"target"','target').replace('"weight"','weight').replace('"classes"','classes'),
+            .replace('"target"','target').replace('"weight"','weight'),
             json.dumps(path4json),json.dumps(nodeinpath),json.dumps(deledges)]

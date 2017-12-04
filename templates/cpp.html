@@ -63,7 +63,9 @@
                 'curve-style': 'bezier',
                 'width': 4,
                 'line-color': '#ddd',
-                'target-arrow-color': '#ddd'
+                'target-arrow-color': '#ddd',
+                'label': 'data(weight)',
+                'font-size': 8
             })
             .selector('.deledge')
             .css({
@@ -150,13 +152,16 @@
                 setTimeout(highlightNode(path[i][1]), 1000);
                 edgesel = 'edge[source="'+path[i][0]+'"][target="'+path[i][1]+'"]';
                 revedgesel = 'edge[source="'+path[i][1]+'"][target="'+path[i][0]+'"]';
+                if (cy.elements(revedgesel).length) {
+                    weight = cy.elements(revedgesel).data().weight;
+                }
                 if (cy.elements(revedgesel).length && !cy.elements(revedgesel).hasClass('highlighted')) {
                     cy.elements(revedgesel).remove();
-                    cy.add({data: { source: path[i][0], target: path[i][1] }, classes: 'highlighted' });
+                    cy.add({data: { source: path[i][0], target: path[i][1], weight: weight }, classes: 'highlighted' });
                 } else if (cy.elements(edgesel).length && !cy.elements(edgesel).hasClass('highlighted')) {
                     cy.elements(edgesel).addClass('highlighted');
                 } else {
-                    cy.add({data: { source: path[i][0], target: path[i][1] }, classes: 'highlighted' });
+                    cy.add({data: { source: path[i][0], target: path[i][1], weight: weight }, classes: 'highlighted' });
                 }
                 i++;
                 setTimeout(highlightNextRoute, 1000);
