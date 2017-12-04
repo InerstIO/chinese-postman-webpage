@@ -6,7 +6,15 @@ body {
   text-align: center;
 }
 #cy {
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
   display: block;
+  position: absolute;
+  right: 0px;
+  width: 75%;
+}
+.upload {
+  position: absolute;
+  left: 0px;
+  width: 25%;
 }
