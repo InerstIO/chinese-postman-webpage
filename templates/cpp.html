@@ -67,13 +67,12 @@
             })
             .selector('.deledge')
             .css({
-                'opacity': 0,
+                'opacity': 0.3,
                 'curve-style': 'bezier',
-                'target-arrow-shape': 'triangle',
                 'width': 4,
                 'line-color': '#ddd',
-                'target-arrow-color': '#ddd',
-                'transition-property': 'opacity',
+                'line-style': 'dashed',
+                'transition-property': 'opacity, line-style',
                 'transition-duration': '2s'
             })
             .selector('.highlighted')
@@ -164,7 +163,7 @@
             }
         };
 
-        highlightNextRoute();
+        setTimeout(highlightNextRoute, 2000);
 
     </script>
 </body>
