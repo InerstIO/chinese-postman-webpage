@@ -100,7 +100,9 @@ var cy = cytoscape({
             setTimeout(highlightNode(path[i][1]), 1000);
             edgesel = 'edge[source="'+path[i][0]+'"][target="'+path[i][1]+'"]';
             revedgesel = 'edge[source="'+path[i][1]+'"][target="'+path[i][0]+'"]';
-            if (cy.elements(revedgesel).length) {
+            if (cy.elements(edgesel).length) {
+                weight = cy.elements(edgesel).data().weight;
+            }else {
                 weight = cy.elements(revedgesel).data().weight;
             }
             if (cy.elements(revedgesel).length && !cy.elements(revedgesel).hasClass('highlighted')) {
